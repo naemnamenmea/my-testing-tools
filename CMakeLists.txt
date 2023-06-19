@@ -1,3 +1,15 @@
+cmake_minimum_required(VERSION 3.27)
+set(CMAKE_CXX_STANDARD 17)
+
+include(FetchContent)
+
+FetchContent_Declare(
+  misc
+  GIT_REPOSITORY https://github.com/naemnamenmea/misc.git
+  GIT_TAG        main
+)
+FetchContent_MakeAvailable(misc)
+
 set(CURRENT_TARGET my_testing_tools)
 
 file(GLOB SOURCE_FILES
