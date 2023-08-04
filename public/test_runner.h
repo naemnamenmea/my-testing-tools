@@ -116,4 +116,23 @@ private:
 		Assert(x, __assert_equal_private_os.str());                                      \
 	}
 
+#define ASSERT_THROW(x)                                                                        \
+	{                                                                                    \
+		bool wasException = false;\
+		try\
+		{\
+			x;\
+		}\
+		catch (...)\
+		{\
+			wasException = true;\
+		}	\
+		if(!wasException)\
+			{\
+				std::stringstream __assert_equal_private_os;                                     \
+				__assert_equal_private_os << #x << " no throw, " << __FILE__ << ":" << __LINE__; \
+				Assert(false, __assert_equal_private_os.str());                                      \
+			}\
+	}
+
 #define RUN_TEST(tr, func, ...) tr.RunTest(func, #func, ##__VA_ARGS__)
