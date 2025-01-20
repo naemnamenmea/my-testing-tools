@@ -1,7 +1,7 @@
 #pragma once
 
 #include "stl_containers_write.hpp"
-#include "ThrowMessage.hpp"
+#include "KontrolException.hpp"
 #include <exception>
 #include <iostream>
 #include <map>
@@ -50,7 +50,7 @@ public:
 			func(args...);
 			std::cerr << test_name << " OK" << std::endl;
 		}
-		catch (const tMessage& e)
+		catch (const KontrolException& e)
 		{
 			++m_failCount;
 			std::cerr << test_name << " fail: " << e << std::endl;
