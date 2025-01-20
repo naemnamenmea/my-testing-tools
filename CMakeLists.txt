@@ -11,6 +11,14 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(misc-base)
 
+if (MSVC)
+    # warning level 4
+    add_compile_options(/W4 /WX)
+else()
+    # additional warnings
+    add_compile_options(-Wall -Wextra -Wpedantic -Werror)
+endif()
+
 set(CURRENT_TARGET my_testing_tools)
 
 file(GLOB SOURCE_FILES

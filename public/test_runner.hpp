@@ -15,10 +15,14 @@ template <class T, class U, class Comparator = std::equal_to<T>>
 void AssertEqual(
 	const T& t, const U& u, const std::string& hint = {}, Comparator cmp = Comparator())
 {
+#ifdef _MSC_VER
 #pragma warning(push)
 #pragma warning(disable : 4389)
+#endif
 	if (!cmp(t, u))
+#ifdef _MSC_VER
 #pragma warning(pop)
+#endif
 	{
 		std::stringstream os;
 		os << "Assertion failed: " << t << " != " << u;
