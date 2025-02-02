@@ -57,16 +57,19 @@ public:
 		catch (const KontrolException& e)
 		{
 			++m_failCount;
+			m_failedTestsNames.emplace_back(test_name);
 			std::cerr << test_name << " fail: " << e << std::endl;
 		}
 		catch (std::exception& e)
 		{
 			++m_failCount;
+			m_failedTestsNames.emplace_back(test_name);
 			std::cerr << test_name << " fail: " << e.what() << std::endl;
 		}
 		catch (...)
 		{
 			++m_failCount;
+			m_failedTestsNames.emplace_back(test_name);
 			std::cerr << test_name << " fail: Unknown exception caught" << std::endl;
 		}
 	}
@@ -80,6 +83,17 @@ public:
 		else
 		{
 			unsigned int testsPassed = m_testsCount - m_failCount;
+
+			std::cerr << std::endl;
+			if(m_failCount > 0)
+			{
+				std::cerr << "Failed tests:" << std::endl;
+				for(const auto& testName : m_failedTestsNames)
+				{
+					std::cerr << testName << std::endl;
+				}
+			}
+
 			std::cerr << ((testsPassed * 100) / m_testsCount) << "% (" << testsPassed << '/' << m_testsCount << ") test(s) passed.";
 
 			if (m_failCount > 0)
@@ -95,6 +109,7 @@ public:
 	}
 
 private:
+	std::vector<std::string> m_failedTestsNames;
 	unsigned int m_failCount;
 	unsigned int m_testsCount;
 };
